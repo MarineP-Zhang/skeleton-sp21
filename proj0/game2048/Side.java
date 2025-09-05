@@ -12,7 +12,7 @@ public enum Side {
      *        * (COL0*s, ROW0*s) are the standard coordinates of the
      *          lower-left corner of the reoriented board (where s is the
      *          board size), and
-     *        * If (c, r) are the standard coordinates of a certain
+     *        * If (c, r) are the standard coordinates of a certaine
      *          square on the reoriented board, then (c+DCOL, r+DROW)
      *          are the standard coordinates of the squares immediately
      *          above it on the reoriented board.

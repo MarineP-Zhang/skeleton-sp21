@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author Mengping Zhang
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -14,7 +14,7 @@ public class Model extends Observable {
     private int score;
     /** Maximum score so far.  Updated when game ends. */
     private int maxScore;
-    /** True iff game is ended. */
+    /** True if game is ended. */
     private boolean gameOver;
 
     /* Coordinate System: column C, row R of the board (where row 0,
@@ -106,6 +106,8 @@ public class Model extends Observable {
      *    value, then the leading two tiles in the direction of motion merge,
      *    and the trailing tile does not.
      * */
+
+
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
@@ -113,6 +115,40 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        board.startViewingFrom(side);
+        int size = board.size();;
+
+        for (int col = 0; col < size; col ++) {
+            boolean[] isMerge = new boolean[size];
+
+            for (int row = size - 2; row >= 0; row --) {
+                Tile current = board.tile(col, row);
+
+                if(current == null) {
+                    continue;
+                }
+
+                int nextPos = row + 1;
+                while(nextPos < size - 1) {
+                    if(board.tile(col, nextPos) != null){break;}
+                    nextPos++;
+                }
+
+                Tile nextTile = board.tile(col,nextPos);
+                if(nextTile == null){
+                    isMerge[nextPos] = board.move(col,nextPos,current);
+                    changed = true;
+                } else if(nextTile.value() == current.value() && !isMerge[nextPos]) {
+                    isMerge[nextPos] = board.move(col, nextPos, current);
+                    score += current.value() * 2;
+                    changed = true;
+                } else if(nextPos > row + 1){
+                    isMerge[nextPos - 1] = board.move(col, nextPos - 1, current);
+                    changed = true;
+                }
+            }
+        }
+        board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
@@ -137,7 +173,13 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i++) {
+            for (int j = 0; j < b.size(); j++) {
+                if (b.tile(i, j) == null) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -147,7 +189,19 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        if(b.size() == 0){
+            return false;
+        }else {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    if(b.tile(i,j) == null){
+                        continue;
+                    }else if (b.tile(i, j).value() == MAX_PIECE) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -158,10 +212,24 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
-        return false;
+        if (emptySpaceExists(b)) {
+            return true;
+        } else {
+            // NO merge in side east and west
+            for (int i = 0; i < b.size(); i++){
+                for (int j = 0; j < b.size() - 1; j++){
+                    if (b.tile(i, j).value() == b.tile(i, j + 1).value()) {return true;}
+                }
+            }
+            //No merge in one column
+            for (int j = 0; j < b.size(); j++){
+                for (int i = 0; i < b.size() - 1; i++){
+                    if (b.tile(i, j).value() == b.tile(i+1, j).value()) {return true;}
+                }
+            }
+            return false;
+        }
     }
-
 
     @Override
      /** Returns the model as a string, used for debugging. */
