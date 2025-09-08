@@ -9,7 +9,7 @@ package timingtest;
 // size: 5
 
 /* Invariants:
- addLast: The next item we want to add, will go into position size
+ addLast: The next item we want to add, will go into position size0
  getLast: The item we want to return is in position size - 1
  size: The number of items in the list should be size.
 */
@@ -34,7 +34,7 @@ public class AList<Item> {
     /** Inserts X into the back of the list. */
     public void addLast(Item x) {
         if (size == items.length) {
-            resize(size + 1);
+            resize(size * 2);
         }
 
         items[size] = x;
