@@ -212,7 +212,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         /**
          * constructor of iterator
          */
-        public LinkedListDequeIterator() {
+        LinkedListDequeIterator() {
             currentNode = headSentinel.next;
         }
 
@@ -229,8 +229,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             if (size == 0) {
                 return null;
             }
+            T currentItem = currentNode.item;
             currentNode = currentNode.next;
-            return currentNode.item;
+            return currentItem;
         }
     }
 
@@ -243,7 +244,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         /**
          * basic data structure for building linked list
          */
-        public LinkedNode() {
+        LinkedNode() {
             item = null;
             previous = null;
             next = null;
@@ -253,7 +254,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
          * Constructor with given data
          * @param data data you want stored as first element
          */
-        public LinkedNode(T data) {
+        LinkedNode(T data) {
             item = data;
             previous = null;
             next = null;
@@ -265,12 +266,11 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
          * @param prev previous node
          * @param next next node
          */
-        public LinkedNode(T data, LinkedNode<T> prev, LinkedNode<T> next) {
+        LinkedNode(T data, LinkedNode<T> prev, LinkedNode<T> next) {
             item = data;
             this.previous = prev;
             this.next = next;
         }
 
     }
-
 }

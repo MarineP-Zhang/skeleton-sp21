@@ -1,6 +1,11 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
+
+import java.util.Iterator;
+import java.util.Random;
+
 import static org.junit.Assert.*;
 
 
@@ -150,7 +155,63 @@ public class LinkedListDequeTest {
         test.printDeque();
         assertEquals(10, test.size());
         test.printDeque();
+    }
 
+    @Test
+    public void testIterator() {
+        ArrayDeque<Integer> arrayTest = new ArrayDeque<>();
+        LinkedListDeque<Integer> linkedTest = new LinkedListDeque<Integer>();
 
+        int N = 500;
+
+        for (int i = 0; i < N; i++) {
+            int operationNumber = StdRandom.uniformInt(0,7);
+            int randVal = StdRandom.uniformInt(0,100);
+            arrayTest.printDeque();
+            linkedTest.printDeque();
+            if (operationNumber == 0) {
+                //addLast
+                arrayTest.addLast(randVal);
+                linkedTest.addLast(randVal);
+            } else if (operationNumber == 1) {
+                //addFirst
+                arrayTest.addFirst(randVal);
+                linkedTest.addFirst(randVal);
+            } else if (operationNumber == 2) {
+                //removeFirst
+                if (arrayTest.isEmpty() || linkedTest.isEmpty()) {
+                    continue;
+                }
+                int arrayFirst = arrayTest.removeFirst();
+                int linkedFirst = linkedTest.removeFirst();
+                assertEquals(arrayFirst, linkedFirst);
+            } else if (operationNumber == 3) {
+                //removeLast
+                if (arrayTest.isEmpty() || linkedTest.isEmpty()) {
+                    continue;
+                }
+                int arrayLast = arrayTest.removeLast();
+                int linkedLast = linkedTest.removeLast();
+                assertEquals(arrayLast, linkedLast);
+            } else if (operationNumber == 4) {
+                assertEquals(arrayTest.size(), linkedTest.size());
+            } else if (operationNumber == 5) {
+                Iterator<Integer> arrayIterator = arrayTest.iterator();
+                Iterator<Integer> linkedIterator = linkedTest.iterator();
+                assertTrue(arrayTest.equals(linkedTest));
+
+                for (int j = 0; j < arrayTest.size() - 1; j++) {
+
+                    assertTrue(arrayIterator.hasNext());
+                    assertTrue(linkedIterator.hasNext());
+                    int arrayNext = arrayIterator.next();
+                    int linkedNext = linkedIterator.next();
+                    System.out.println("arrayNext: " + arrayNext + " linkedNext: " + linkedNext);
+                    assertEquals(arrayNext, linkedNext);
+                }
+            } else if (operationNumber == 6) {
+                assertTrue(arrayTest.equals(linkedTest));
+            }
+        }
     }
 }

@@ -150,7 +150,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         /**
          * Constructor
          */
-        public ArrayDequeIterator() {
+        ArrayDequeIterator() {
             distance = 0;
         }
 
