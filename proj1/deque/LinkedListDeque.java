@@ -1,37 +1,10 @@
 package deque;
 
-import org.junit.Assert;
-
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
-public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
-
-    private class LinkedNode<T> {
-        public T Item;
-        public LinkedNode<T> previous;
-        public LinkedNode<T> next;
-
-        public LinkedNode() {
-            Item = null;
-            previous = null;
-            next = null;
-        }
-
-        public LinkedNode(T data) {
-            Item = data;
-            previous = null;
-            next = null;
-        }
-
-        public LinkedNode(T data, LinkedNode<T> prev, LinkedNode<T> next) {
-            Item = data;
-            this.previous = prev;
-            this.next = next;
-        }
-
-    }
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     private LinkedNode<T> headSentinel;
     private LinkedNode<T> tailSnetinel;
@@ -47,11 +20,23 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
     }
 
     /**
+     * @param o compared object
+     * @return true if equals
+     */
+    public boolean equals(Object o) {
+        if (!(o instanceof Deque<?>)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * Add item to the head of deque.
      * @param item cannot be null.
      */
     @Override
-    public void addFirst(T item){
+    public void addFirst(T item) {
         assertNotNull(item);
         LinkedNode<T> newNode = new LinkedNode<T>(item);
 
@@ -73,7 +58,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
      * @param item cannot be null.
      */
     @Override
-    public void addLast(T item){
+    public void addLast(T item) {
         assertNotNull(item);
         LinkedNode<T> newNode = new LinkedNode<T>(item);
 
@@ -94,7 +79,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
      * @return the size of deque
      */
     @Override
-    public int size(){
+    public int size() {
         return size;
     }
 
@@ -102,10 +87,10 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
      * Print all the Item in deque in order.
      */
     @Override
-    public void printDeque(){
+    public void printDeque() {
         LinkedNode<T> curr = headSentinel.next;
         while (curr != null) {
-            System.out.print(curr.Item + " ");
+            System.out.print(curr.item + " ");
             curr = curr.next;
         }
         System.out.println();
@@ -117,7 +102,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
      * @return item in the head of deque.
      */
     @Override
-    public T removeFirst(){
+    public T removeFirst() {
         if (size == 0) {
             return null;
         } else {
@@ -126,11 +111,11 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
             if (size == 1) {
                 headSentinel.next = null;
                 tailSnetinel.previous = null;
-            }else {
+            } else {
                 headSentinel.next.previous = null;
             }
             size--;
-            return currentFirst.Item;
+            return currentFirst.item;
         }
     }
 
@@ -140,7 +125,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
      * @return item in the last node of deque.
      */
     @Override
-    public T removeLast(){
+    public T removeLast() {
         if (size == 0) {
             return null;
         } else {
@@ -149,11 +134,11 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
             if (size == 1) {
                 headSentinel.next = null;
                 tailSnetinel.previous = null;
-            }else {
+            } else {
                 tailSnetinel.previous.next = null;
             }
             size--;
-            return currentLast.Item;
+            return currentLast.item;
         }
     }
 
@@ -163,7 +148,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
      * @return Item stored in the node
      */
     @Override
-    public T get(int index){
+    public T get(int index) {
         if (index >= size || index < 0) {
             return null;
         } else {
@@ -171,37 +156,55 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
             for (int i = 0; i < index; i++) {
                 curr = curr.next;
             }
-            return curr.Item;
+            return curr.item;
         }
     }
 
 
-    private T helperRecursive (int index, LinkedNode<T> curr) {
+    /**
+     * uhrufru
+     * @param index furhi
+     * @param curr friuhfeiu
+     * @return nfuieri
+     */
+    private T helperRecursive(int index, LinkedNode<T> curr) {
         if (index == 0) {
-            return curr.Item;
+            return curr.item;
         } else {
             return helperRecursive(index - 1, curr.next);
         }
     }
 
+    /**
+     * hfrhei
+     * @param index  fre
+     * @return fre
+     */
     public T getRecursive(int index) {
         if (index >= size || index < 0) {
             return null;
         } else if (index == 0) {
-            return headSentinel.next.Item;
+            return headSentinel.next.item;
         } else {
             return helperRecursive(index - 1, headSentinel.next.next);
         }
     }
 
-    public Iterator<T> iterator(){
+    /**
+     * fr
+     * @return fref
+     */
+    public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
     }
 
     private class LinkedListDequeIterator implements Iterator<T> {
 
-        public LinkedNode<T> currentNode;
+        private LinkedNode<T> currentNode;
 
+        /**
+         * fefeuyg
+         */
         public LinkedListDequeIterator() {
             currentNode = headSentinel.next;
         }
@@ -220,21 +223,47 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
                 return null;
             }
             currentNode = currentNode.next;
-            return currentNode.Item;
+            return currentNode.item;
         }
     }
 
-    /**
-     * TODO: Finish this.
-     * @param o
-     * @return
-     */
-    public boolean equals(Object o) {
-        if (! (o instanceof Deque<?>)) {
-            return false;
-        } else {
-            return false;
+
+    private class LinkedNode<T> {
+        private T item;
+        private LinkedNode<T> previous;
+        private LinkedNode<T> next;
+
+        /**
+         * basic data structure for building linked list
+         */
+        public LinkedNode() {
+            item = null;
+            previous = null;
+            next = null;
         }
+
+        /**
+         * Constructor with given data
+         * @param data data you want stored as first element
+         */
+        public LinkedNode(T data) {
+            item = data;
+            previous = null;
+            next = null;
+        }
+
+        /**
+         * Constructor with all parameters
+         * @param data node's data
+         * @param prev previous node
+         * @param next next node
+         */
+        public LinkedNode(T data, LinkedNode<T> prev, LinkedNode<T> next) {
+            item = data;
+            this.previous = prev;
+            this.next = next;
+        }
+
     }
 
 }
