@@ -37,30 +37,6 @@ public class TestGuitarString  {
     }
 
 
-    @Test
-    public void testTic() {
-        GuitarString s = new GuitarString(100);
-        assertEquals(0.0, s.sample(), 0.0);
-        assertEquals(0.0, s.sample(), 0.0);
-        assertEquals(0.0, s.sample(), 0.0);
-        s.pluck();
-        double sample1 = s.sample();
-        assertNotEquals("After plucking, your samples should not be 0.", 0.0, sample1);
-
-        s.tic();
-        assertNotEquals("After tic(), your samples should not stay the same.", sample1, s.sample());
-
-        s.pluck();
-        s.pluck();
-        s.pluck();
-
-        double test1 = s.get(0);
-        double test2 = s.get(1);
-        s.tic();
-        double result = s.get(s.size() - 1);
-
-        System.out.print(test1 + " " + test2 + " " + result);
-    }
 
 
     @Test

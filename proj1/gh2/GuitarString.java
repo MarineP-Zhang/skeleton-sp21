@@ -64,14 +64,4 @@ public class GuitarString {
         //  Return the correct thing.
         return buffer.get(0);
     }
-
-    public double get(int index) {
-        //  Return the correct thing.
-        return buffer.get(index);
-    }
-
-    public int size() {
-        return buffer.size();
-    }
 }
-
