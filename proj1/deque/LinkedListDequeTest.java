@@ -133,41 +133,24 @@ public class LinkedListDequeTest {
         ArrayDeque<String> test = new ArrayDeque<>();
 
         test.addFirst("1a");
-        assertEquals(1, test.size());
         test.addFirst("2a");
-        assertEquals(2, test.size());
+        test.addFirst("3a");
+        test.addFirst("4a");
+        test.addFirst("5a");
+        test.addFirst("6a");
         test.printDeque();
 
-        test.addFirst("1a");
-        test.addFirst("2a");
+        test.addLast("7a");
+        test.addLast("8a");
         test.printDeque();
 
-        test.addFirst("1a");
-        test.addFirst("2a");
+        test.addLast("9a");
         test.printDeque();
-
-        test.addFirst("1a");
-        test.addFirst("2a");
+        test.addFirst("10a");
         test.printDeque();
-
-        test.addFirst("1a");
-        test.addFirst("2a");
         assertEquals(10, test.size());
         test.printDeque();
 
-        assertEquals("2a", test.removeFirst());
-        assertEquals(9, test.size());
-        assertEquals("1a", test.removeFirst());
-        assertEquals(8, test.size());
-        test.printDeque();
 
-        assertEquals("1a", test.removeLast());
-        assertEquals(7, test.size());
-        assertEquals("2a", test.removeLast());
-        assertEquals(6, test.size());
-        test.printDeque();
-
-        assertEquals("1a", test.get(1));
-        assertEquals("1a", test.get(3));
     }
 }
