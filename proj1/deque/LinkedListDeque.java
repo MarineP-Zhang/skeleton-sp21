@@ -195,7 +195,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     /**
-     * TODO: fix bugs
      * Iterator function
      * @return iterator of current deque
      */
