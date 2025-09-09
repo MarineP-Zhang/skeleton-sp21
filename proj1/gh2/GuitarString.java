@@ -21,7 +21,10 @@ public class GuitarString {
         //Your should initially fill your buffer array with zeros.
 
         int capacity = (int) Math.round(SR / frequency);
-        buffer = new ArrayDeque<>(capacity);
+        buffer = new ArrayDeque<>();
+        for (int i = 0; i < frequency; i++) {
+            buffer.addLast(0.0);
+        }
     }
 
 
@@ -38,6 +41,7 @@ public class GuitarString {
 
         for (int i = 0; i < buffer.size(); i++) {
             double r = Math.random() - 0.5;
+            buffer.removeFirst();
             buffer.addLast(r);
         }
     }

@@ -22,16 +22,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     /**
-     * Constructor: initiate backing array with given length
-     * @param length given length
-     */
-    public ArrayDeque(int length) {
-        backingArray = (T[]) new Object[length];
-        size = 0;
-        first = 0;
-    }
-
-    /**
      * @param o compared object
      * @return true if equals
      */
