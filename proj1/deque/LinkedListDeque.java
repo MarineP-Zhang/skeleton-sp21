@@ -24,10 +24,16 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
      * @return true if equals
      */
     public boolean equals(Object o) {
-        if (!(o instanceof Deque<?>)) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof Deque<?>) || this.size() != ((Deque<?>) o).size()) {
             return false;
         } else {
-            return true;
+            boolean result = true;
+            for (int i = 0; i < this.size(); i++) {
+                result &= (this.get(i) == ((Deque<?>) o).get(i));
+            }
+            return result;
         }
     }
 
@@ -162,10 +168,10 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
 
     /**
-     * uhrufru
-     * @param index furhi
-     * @param curr friuhfeiu
-     * @return nfuieri
+     * helper function return a recursive function
+     * @param index given position
+     * @param curr current deque
+     * @return item in the index node in deque
      */
     private T helperRecursive(int index, LinkedNode<T> curr) {
         if (index == 0) {
@@ -176,9 +182,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     /**
-     * hfrhei
-     * @param index  fre
-     * @return fre
+     * return the index th item in deque
+     * @param index  given position
+     * @return item in that node of given index
      */
     public T getRecursive(int index) {
         if (index >= size || index < 0) {
@@ -191,8 +197,8 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     /**
-     * fr
-     * @return fref
+     * Iterator function
+     * @return iterator of current deque
      */
     public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
@@ -203,7 +209,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         private LinkedNode<T> currentNode;
 
         /**
-         * fefeuyg
+         * constructor of iterator
          */
         public LinkedListDequeIterator() {
             currentNode = headSentinel.next;

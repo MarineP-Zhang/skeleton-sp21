@@ -22,12 +22,21 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     /**
-     * Compare two deque
-     * @param o given object
-     * @return if two object both have same T type item in the same order, return true, otherwise return false.
+     * @param o compared object
+     * @return true if equals
      */
     public boolean equals(Object o) {
-        return false;
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof Deque<?>) || this.size() != ((Deque<?>) o).size()) {
+            return false;
+        } else {
+            boolean result = true;
+            for (int i = 0; i < this.size(); i++) {
+                result &= (this.get(i) == ((Deque<?>) o).get(i));
+            }
+            return result;
+        }
     }
 
     /**
