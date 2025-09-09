@@ -158,11 +158,11 @@ public class LinkedListDequeTest {
     }
 
     @Test
-    public void testIterator() {
+    public void testRandom() {
         ArrayDeque<Integer> arrayTest = new ArrayDeque<>();
         LinkedListDeque<Integer> linkedTest = new LinkedListDeque<Integer>();
 
-        int N = 500;
+        int N = 5000;
 
         for (int i = 0; i < N; i++) {
             int operationNumber = StdRandom.uniformInt(0,7);
@@ -213,5 +213,58 @@ public class LinkedListDequeTest {
                 assertTrue(arrayTest.equals(linkedTest));
             }
         }
+    }
+
+    @Test
+    public void testIterator() {
+        ArrayDeque<Integer> arrayTest = new ArrayDeque<>();
+        LinkedListDeque<Integer> linkedTest = new LinkedListDeque<Integer>();
+
+        int N = 500;
+
+        for (int i = 0; i < N; i++) {
+            int operationNumber = StdRandom.uniformInt(0,4);
+            int randVal = StdRandom.uniformInt(0,100);
+            if (operationNumber == 0) {
+                //addLast
+                arrayTest.addLast(randVal);
+                linkedTest.addLast(randVal);
+            } else if (operationNumber == 1) {
+                //addFirst
+                arrayTest.addFirst(randVal);
+                linkedTest.addFirst(randVal);
+            } else if (operationNumber == 2) {
+                //removeFirst
+                if (arrayTest.isEmpty() || linkedTest.isEmpty()) {
+                    continue;
+                }
+                int arrayFirst = arrayTest.removeFirst();
+                int linkedFirst = linkedTest.removeFirst();
+                assertEquals(arrayFirst, linkedFirst);
+            } else if (operationNumber == 3) {
+                //removeLast
+                if (arrayTest.isEmpty() || linkedTest.isEmpty()) {
+                    continue;
+                }
+                int arrayLast = arrayTest.removeLast();
+                int linkedLast = linkedTest.removeLast();
+                assertEquals(arrayLast, linkedLast);
+            }
+
+            Iterator<Integer> arrayIterator = arrayTest.iterator();
+            Iterator<Integer> linkedIterator = linkedTest.iterator();
+            System.out.println(arrayTest.size());
+        }
+    }
+
+    @Test
+    public void testEmptyIterator() {
+        ArrayDeque<Integer> arrayTest = new ArrayDeque<>();
+        LinkedListDeque<Integer> linkedTest = new LinkedListDeque<Integer>();
+
+        Iterator<Integer> arrayIterator = arrayTest.iterator();
+        Iterator<Integer> linkedIterator = linkedTest.iterator();
+        assertTrue(!arrayIterator.hasNext());
+        assertTrue(!linkedIterator.hasNext());
     }
 }

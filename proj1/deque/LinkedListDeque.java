@@ -1,7 +1,5 @@
 package deque;
-
 import java.util.Iterator;
-
 import static org.junit.Assert.*;
 
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
@@ -221,12 +219,12 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             if (size == 0) {
                 return false;
             }
-            return currentNode.next != null;
+            return currentNode != null;
         }
 
         @Override
         public T next() {
-            if (size == 0) {
+            if (!hasNext()) {
                 return null;
             }
             T currentItem = currentNode.item;
@@ -271,6 +269,5 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             this.previous = prev;
             this.next = next;
         }
-
     }
 }

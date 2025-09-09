@@ -162,7 +162,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             if (size == 0) {
                 return false;
             }
-            return distance <= size;
+            return distance < size;
         }
 
         /**
@@ -171,6 +171,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
          */
         @Override
         public T next() {
+            if (!hasNext()) {
+                return null;
+            }
             T nextT = backingArray[(first + distance) % backingArray.length];
             distance++;
             return nextT;
