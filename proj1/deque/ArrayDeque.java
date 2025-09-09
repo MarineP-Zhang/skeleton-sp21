@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
     private static int INITIAL_LENGTH = 8;
 
@@ -28,7 +28,7 @@ public class ArrayDeque<T> implements Deque<T> {
     private void resize(int length) {
         T[] tmpArray = (T[]) new Object[length];
         for (int i = 0; i < size; i ++) {
-            tmpArray[i] = backingArray[i];
+            tmpArray[i] = backingArray[(first + i) % backingArray.length];
         }
         backingArray = tmpArray;
     }
@@ -76,8 +76,8 @@ public class ArrayDeque<T> implements Deque<T> {
             return null;
         }
 
-        T firstOne = backingArray[first];
-        backingArray[first] = null;
+        T firstOne = backingArray[(first + 1 + backingArray.length) % backingArray.length];
+        backingArray[(first + 1 + backingArray.length) % backingArray.length] = null;
         first = (first + 1) % backingArray.length;
         size--;
 
@@ -98,7 +98,7 @@ public class ArrayDeque<T> implements Deque<T> {
         backingArray[last] = null;
         size--;
 
-        if (size < backingArray.length / 4) {
+        if (size < backingArray.length / 4 && backingArray.length >= INITIAL_LENGTH * 2) {
             resize(backingArray.length / 2);
         }
         return lastOne;
@@ -109,7 +109,7 @@ public class ArrayDeque<T> implements Deque<T> {
         if(index < 0 || index >= size) {
             return null;
         }
-        return backingArray[index];
+        return backingArray[(first + index ) % backingArray.length];
     }
 
 
@@ -126,12 +126,15 @@ public class ArrayDeque<T> implements Deque<T> {
 
         @Override
         public boolean hasNext() {
-            return distance >= size;
+            if (size == 0) {
+                return false;
+            }
+            return distance <= size;
         }
 
         @Override
         public T next() {
-            T nextT = backingArray[first + distance];
+            T nextT = backingArray[(first + distance) % backingArray.length];
             distance++;
             return nextT;
         }

@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
-public class LinkedListDeque<T> implements Deque<T>{
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
 
     private class LinkedNode<T> {
         public T Item;
@@ -208,11 +208,17 @@ public class LinkedListDeque<T> implements Deque<T>{
 
         @Override
         public boolean hasNext() {
+            if (size == 0) {
+                return false;
+            }
             return currentNode.next != null;
         }
 
         @Override
         public T next() {
+            if (size == 0) {
+                return null;
+            }
             currentNode = currentNode.next;
             return currentNode.Item;
         }
