@@ -22,7 +22,7 @@ public class GuitarString {
 
         int capacity = (int) Math.round(SR / frequency);
         buffer = new ArrayDeque<>();
-        for (int i = 0; i < frequency; i++) {
+        for (int i = 0; i < capacity; i++) {
             buffer.addLast(0.0);
         }
     }
@@ -63,6 +63,15 @@ public class GuitarString {
     public double sample() {
         //  Return the correct thing.
         return buffer.get(0);
+    }
+
+    public double get(int index) {
+        //  Return the correct thing.
+        return buffer.get(index);
+    }
+
+    public int size() {
+        return buffer.size();
     }
 }
 
