@@ -33,7 +33,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         } else {
             boolean result = true;
             for (int i = 0; i < this.size(); i++) {
-                result &= (this.get(i) == ((Deque<?>) o).get(i));
+                result &= (this.get(i).equals(((Deque<?>) o).get(i)));
             }
             return result;
         }
@@ -59,8 +59,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             resize(backingArray.length * 2);
         }
 
-        backingArray[first] = item;
         first = (first - 1 + backingArray.length) % backingArray.length;
+        backingArray[first] = item;
         size++;
     }
 
@@ -94,12 +94,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
 
-        T firstOne = backingArray[(first + 1 + backingArray.length) % backingArray.length];
-        backingArray[(first + 1 + backingArray.length) % backingArray.length] = null;
+        T firstOne = backingArray[first];
+        backingArray[first] = null;
         first = (first + 1) % backingArray.length;
         size--;
 
-        if (size < backingArray.length / 4) {
+        if (size < backingArray.length / 4 && backingArray.length >= initialLength * 2) {
             resize(backingArray.length / 2);
         }
         return firstOne;

@@ -31,7 +31,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         } else {
             boolean result = true;
             for (int i = 0; i < this.size(); i++) {
-                result &= (this.get(i) == ((Deque<?>) o).get(i));
+                result &= (this.get(i).equals(((Deque<?>) o).get(i)));
             }
             return result;
         }
@@ -197,6 +197,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     /**
+     * TODO: fix bugs
      * Iterator function
      * @return iterator of current deque
      */
