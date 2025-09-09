@@ -130,7 +130,7 @@ public class LinkedListDequeTest {
 
     @Test
     public void testAddFirst() {
-        LinkedListDeque<String> test = new LinkedListDeque<>();
+        ArrayDeque<String> test = new ArrayDeque<>();
 
         test.addFirst("1a");
         assertEquals(1, test.size());
@@ -159,15 +159,13 @@ public class LinkedListDequeTest {
         assertEquals(9, test.size());
         assertEquals("1a", test.removeFirst());
         assertEquals(8, test.size());
+        test.printDeque();
 
         assertEquals("1a", test.removeLast());
         assertEquals(7, test.size());
         assertEquals("2a", test.removeLast());
         assertEquals(6, test.size());
         test.printDeque();
-
-        assertEquals("1a", test.getRecursive(1));
-        assertEquals("1a", test.getRecursive(3));
 
         assertEquals("1a", test.get(1));
         assertEquals("1a", test.get(3));

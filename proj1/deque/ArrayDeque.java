@@ -111,7 +111,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
 
-        int last = (first + size) % backingArray.length;
+        int last = (first + size - 1) % backingArray.length;
         T lastOne = backingArray[last];
         backingArray[last] = null;
         size--;
