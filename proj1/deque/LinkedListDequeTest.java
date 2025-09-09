@@ -121,4 +121,55 @@ public class LinkedListDequeTest {
         }
 
     }
+
+    @Test
+    public void testInitiate() {
+        LinkedListDeque<Integer> test = new LinkedListDeque<Integer>();
+        assertEquals(0,test.size());
+    }
+
+    @Test
+    public void testAddFirst() {
+        LinkedListDeque<String> test = new LinkedListDeque<>();
+
+        test.addFirst("1a");
+        assertEquals(1, test.size());
+        test.addFirst("2a");
+        assertEquals(2, test.size());
+        test.printDeque();
+
+        test.addFirst("1a");
+        test.addFirst("2a");
+        test.printDeque();
+
+        test.addFirst("1a");
+        test.addFirst("2a");
+        test.printDeque();
+
+        test.addFirst("1a");
+        test.addFirst("2a");
+        test.printDeque();
+
+        test.addFirst("1a");
+        test.addFirst("2a");
+        assertEquals(10, test.size());
+        test.printDeque();
+
+        assertEquals("2a", test.removeFirst());
+        assertEquals(9, test.size());
+        assertEquals("1a", test.removeFirst());
+        assertEquals(8, test.size());
+
+        assertEquals("1a", test.removeLast());
+        assertEquals(7, test.size());
+        assertEquals("2a", test.removeLast());
+        assertEquals(6, test.size());
+        test.printDeque();
+
+        assertEquals("1a", test.getRecursive(1));
+        assertEquals("1a", test.getRecursive(3));
+
+        assertEquals("1a", test.get(1));
+        assertEquals("1a", test.get(3));
+    }
 }

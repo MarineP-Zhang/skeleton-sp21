@@ -227,7 +227,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         if (! (o instanceof Deque<?>)) {
             return false;
         } else {
-
+            return false;
         }
     }
 
