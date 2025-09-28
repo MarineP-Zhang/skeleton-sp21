@@ -1,10 +1,14 @@
 package capers;
 
+import sun.nio.ch.Util;
+
 import java.io.File;
+import java.io.IOException;
+
 import static capers.Utils.*;
 
 /** A repository for Capers 
- * @author TODO
+ * @author Mengping Zhang
  * The structure of a Capers Repository is as follows:
  *
  * .capers/ -- top level folder for all persistent data in your lab12 folder
@@ -18,8 +22,7 @@ public class CapersRepository {
     static final File CWD = new File(System.getProperty("user.dir"));
 
     /** Main metadata folder. */
-    static final File CAPERS_FOLDER = null; // TODO Hint: look at the `join`
-                                            //      function in Utils
+    static final File CAPERS_FOLDER = Utils.join(CWD,".capers");
 
     /**
      * Does required filesystem operations to allow for persistence.
@@ -31,7 +34,19 @@ public class CapersRepository {
      *    - story -- file containing the current story
      */
     public static void setupPersistence() {
-        // TODO
+        if (!CAPERS_FOLDER.exists()) {
+            CAPERS_FOLDER.mkdirs();
+        }
+
+        File dogFolder = Utils.join(CAPERS_FOLDER, "dogs");
+        if (!dogFolder.exists()) {
+            dogFolder.mkdirs();
+        }
+
+        File storyFolder = Utils.join(CAPERS_FOLDER, "story");
+        if (!storyFolder.exists()) {
+            storyFolder.mkdirs();
+        }
     }
 
     /**
@@ -40,7 +55,13 @@ public class CapersRepository {
      * @param text String of the text to be appended to the story
      */
     public static void writeStory(String text) {
-        // TODO
+        File storyFolder = Utils.join(CAPERS_FOLDER, "story");
+
+        String existingContent = Utils.readContentsAsString(storyFolder);
+        String newContent = existingContent + text + System.lineSeparator();
+
+        Utils.writeContents(storyFolder, newContent);
+        System.out.println(newContent);
     }
 
     /**
@@ -49,7 +70,10 @@ public class CapersRepository {
      * Also prints out the dog's information using toString().
      */
     public static void makeDog(String name, String breed, int age) {
-        // TODO
+        File dogFile = Utils.join(CAPERS_FOLDER, "dogs", name, ".txt");
+
+        Dog newDog = new Dog(name, breed, age);
+        Utils.writeObject(dogFile, newDog);
     }
 
     /**
