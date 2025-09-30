@@ -15,15 +15,6 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         size = 0;
     }
 
-    /**
-     * Build a tree with given root.
-     * @param key root's key
-     * @param val root's val
-     */
-    public BSTMap (K key, V val) {
-        root = new BSTNode<K, V>(key, val);
-        size = 1;
-    }
 
     @Override
     public void clear() {
@@ -88,10 +79,21 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         } else if (node.getKey().compareTo(key) < 0) {
             result = get(key, node.getRight());
         }
-
         return result;
     }
 
+    public void printInOrder() {
+        printInOrder(root);
+    }
+
+    private void printInOrder(BSTNode<K, V> node) {
+        if (node == null) {
+            return;
+        }
+        printInOrder(node.getLeft());
+        System.out.println("Key: " + node.getKey().toString() + " Value: " + node.getVal().toString());
+        printInOrder(node.getRight());
+    }
     @Override
     public int size() {return size;}
 
